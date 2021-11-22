@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="spacex_api_url">https://api.spacexdata.com</string>
+    <integer name="request_timeout">90</integer>
+</resources>

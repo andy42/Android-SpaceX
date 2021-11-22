@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/launchListFragment">
+
+    <fragment
+        android:id="@+id/rocketListFragment"
+        android:name="com.jaehl.spacex.ui.rockets.RocketListFragment"
+        android:label="@string/rocket_list_fragment_title"
+        tools:layout="@layout/fragment_rocket_list"/>
+
+    <fragment
+        android:id="@+id/launchListFragment"
+        android:name="com.jaehl.spacex.ui.launches.LaunchListFragment"
+        android:label="@string/launch_list_fragment_title"
+        tools:layout="@layout/fragment_rocket_list"/>
+
+</navigation>

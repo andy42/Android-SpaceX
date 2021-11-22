@@ -1,0 +1,11 @@
+<resources>
+    <string name="app_name">spacex</string>
+    <string name="error_dialog_title">Error</string>
+    <string name="generic_error">Oops something went wrong</string>
+    <string name="ok_btn">OK</string>
+
+    <string name="rocket_list_fragment_title">Rocket List</string>
+    <string name="launch_list_fragment_title">Launches</string>
+
+    <string name="launch_patch_description">Mission Patch</string>
+</resources>
