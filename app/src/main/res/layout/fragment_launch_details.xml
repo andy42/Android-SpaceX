@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
     <data>
         <variable
-            name="launch"
-            type="com.jaehl.spacex.ui.launches.LaunchItemViewData"/>
+            name="viewModel"
+            type="com.jaehl.spacex.ui.launchDetails.LaunchDetailsViewModel"/>
     </data>
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
@@ -19,12 +20,12 @@
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintLeft_toLeftOf="parent"
             android:contentDescription="@string/launch_patch_description"
-            app:imageUrl="@{launch.patchUrl}"
+            app:imageUrl="@{viewModel.launchDetailsViewData.patchUrl}"
             app:placeholder="@{@drawable/ic_launcher_background}"/>
 
         <TextView
             android:id="@+id/missionNameTextView"
-            android:text="@{launch.name}"
+            android:text="@{viewModel.launchDetailsViewData.name}"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintLeft_toRightOf="@id/image"
             app:layout_constraintRight_toRightOf="parent"
@@ -34,7 +35,7 @@
             android:layout_height="wrap_content"/>
         <TextView
             android:id="@+id/dateTextView"
-            android:text="@{launch.date}"
+            android:text="@{viewModel.launchDetailsViewData.date}"
             app:layout_constraintTop_toBottomOf="@id/missionNameTextView"
             app:layout_constraintLeft_toRightOf="@id/image"
             app:layout_constraintRight_toRightOf="parent"
@@ -43,15 +44,16 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"/>
         <TextView
-            android:id="@+id/succssesTextView"
-            android:text="@{launch.statusStringRef}"
+            android:id="@+id/successTextView"
             app:layout_constraintTop_toBottomOf="@+id/dateTextView"
             app:layout_constraintLeft_toRightOf="@id/image"
             app:layout_constraintRight_toRightOf="parent"
             android:layout_marginTop="5dp"
             android:layout_marginLeft="@dimen/fragment_horizontal_margin"
             android:layout_width="0dp"
-            android:layout_height="wrap_content"/>
+            android:layout_height="wrap_content"
+            tools:text="success"
+            />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

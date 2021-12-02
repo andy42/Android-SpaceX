@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
 import com.jaehl.spacex.databinding.FragmentLaunchListBinding
 import com.jaehl.spacex.ui.extensions.showErrorDialog
 import dagger.hilt.android.AndroidEntryPoint
@@ -41,7 +42,8 @@ class LaunchListFragment : Fragment(), LaunchRecyclerViewAdapter.OnItemClickList
         return binding.root
     }
 
-    override fun onItemClick(item: LaunchViewData) {
-        //TODO add nav action
+    override fun onItemClick(item: LaunchItemViewData) {
+        val action = LaunchListFragmentDirections.toLaunchDetails(item.id)
+        findNavController().navigate(action)
     }
 }

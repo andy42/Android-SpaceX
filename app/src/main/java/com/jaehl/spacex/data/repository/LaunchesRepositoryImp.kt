@@ -18,6 +18,12 @@ class LaunchesRepositoryImp (private val spacexClient : SpacexClient, private va
         }.flowOn(dispatcher.io())
     }
 
+    override fun getLaunch(id: String): Flow<Result<Launch>> {
+        return flow {
+            emit(Result.success(launchDao.get(id)))
+        }.flowOn(dispatcher.io())
+    }
+
     private fun getLaunchesCached() : Result<List<Launch>>{
         return Result.loading(launchDao.getAll())
     }

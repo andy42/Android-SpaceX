@@ -14,6 +14,7 @@
         app:layout_constraintLeft_toLeftOf="parent"
         android:background="@color/purple_500"
         app:titleTextColor="@color/white"
+        app:theme="@style/ToolbarColoredBackArrow"
         tools:title="Home"/>
 
     <androidx.fragment.app.FragmentContainerView

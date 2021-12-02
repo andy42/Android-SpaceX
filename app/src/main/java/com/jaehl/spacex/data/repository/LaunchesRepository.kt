@@ -6,4 +6,5 @@ import com.jaehl.spacex.data.model.Launch
 
 interface LaunchesRepository {
     fun getLaunches() : Flow<Result<List<Launch>>>
+    fun getLaunch(id : String) : Flow<Result<Launch>>
 }

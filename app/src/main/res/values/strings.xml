@@ -6,6 +6,11 @@
 
     <string name="rocket_list_fragment_title">Rocket List</string>
     <string name="launch_list_fragment_title">Launches</string>
+    <string name="launch_details_fragment_title">Launch Details</string>
 
     <string name="launch_patch_description">Mission Patch</string>
+
+    <string name="launch_status_upcoming">Upcoming</string>
+    <string name="launch_status_success">Success</string>
+    <string name="launch_status_failure">Failure</string>
 </resources>

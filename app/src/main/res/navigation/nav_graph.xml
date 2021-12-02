@@ -15,6 +15,23 @@
         android:id="@+id/launchListFragment"
         android:name="com.jaehl.spacex.ui.launches.LaunchListFragment"
         android:label="@string/launch_list_fragment_title"
-        tools:layout="@layout/fragment_rocket_list"/>
+        tools:layout="@layout/fragment_rocket_list">
+        <action
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right"
+            android:id="@+id/to_launch_details"
+            app:destination="@+id/launchDetailsFragment"/>
+    </fragment>
 
+    <fragment
+        android:id="@+id/launchDetailsFragment"
+        android:name="com.jaehl.spacex.ui.launchDetails.LaunchDetailsFragment"
+        android:label="@string/launch_details_fragment_title"
+        tools:layout="@layout/fragment_rocket_list">
+        <argument
+            android:name="launchId"
+            app:argType="string"/>
+    </fragment>
 </navigation>

@@ -10,7 +10,7 @@ class LaunchRecyclerViewAdapter(
     val listener: OnItemClickListener
 ) : RecyclerView.Adapter<LaunchRecyclerViewAdapter.ViewHolder>() {
 
-    private var items: List<LaunchViewData> = arrayListOf()
+    private var items: List<LaunchItemViewData> = arrayListOf()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         return ViewHolder(
@@ -26,7 +26,7 @@ class LaunchRecyclerViewAdapter(
 
     override fun getItemCount(): Int = items.size
 
-    fun setItems(items: List<LaunchViewData>) {
+    fun setItems(items: List<LaunchItemViewData>) {
         this.items = items
         notifyDataSetChanged()
     }
@@ -34,7 +34,7 @@ class LaunchRecyclerViewAdapter(
     inner class ViewHolder(private val binding: ItemLaunchListBinding) :
         RecyclerView.ViewHolder(binding.root) {
 
-        fun bind(item: LaunchViewData) {
+        fun bind(item: LaunchItemViewData) {
             binding.launch = item
             binding.executePendingBindings()
             binding.root.setOnClickListener {
@@ -44,6 +44,6 @@ class LaunchRecyclerViewAdapter(
     }
 
     interface OnItemClickListener {
-        fun onItemClick(item: LaunchViewData)
+        fun onItemClick(item: LaunchItemViewData)
     }
 }
