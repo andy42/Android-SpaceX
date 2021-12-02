@@ -38,21 +38,34 @@ class LaunchListViewModel @Inject constructor(private val repository: LaunchesRe
 
         launchDataLoad(dispatcher, doOnError = {passError(it)} ){
             repository.getLaunches().collect{ result ->
-                when(result.status){
-                    Result.Status.SUCCESS -> {
+                when(result){
+                    is Result.Success -> {
                         _items.postValue(passListResult(result.data))
                         _loading.postValue(false)
                     }
-                    Result.Status.ERROR -> {
+                    is Result.Error -> {
                         Timber.e(result.error,"LaunchListViewModel")
-                        _onError.postValue(result.message ?: R.string.generic_error)
+                        handleError(result)
                         _loading.postValue(false)
                     }
-                    Result.Status.LOADING -> {
-                        _items.postValue(passListResult(result.data))
+                    is Result.Loading -> {
+                        result.data?.let {
+                            _items.postValue(passListResult(it))
+                        }
                         _loading.postValue(true)
                     }
                 }
+            }
+        }
+    }
+
+    private fun handleError(error : Result.Error<*>){
+        when(error){
+            is Result.Error.NoInternetError -> {
+                _onError.postValue( R.string.no_internet_error)
+            }
+            else -> {
+                _onError.postValue( R.string.generic_error)
             }
         }
     }
@@ -62,9 +75,8 @@ class LaunchListViewModel @Inject constructor(private val repository: LaunchesRe
         _onError.postValue(R.string.generic_error)
     }
 
-    private fun passListResult(list : List<Launch>?) : List<LaunchItemViewData>{
-        val data = list ?: arrayListOf()
-        return data.filter { !it.upcoming }
+    private fun passListResult(list : List<Launch>) : List<LaunchItemViewData>{
+        return list.filter { !it.upcoming }
             .sortedByDescending { it.dateUnix }
             .map { launchModelToViewData(it) }
     }

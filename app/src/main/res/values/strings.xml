@@ -1,6 +1,7 @@
 <resources>
     <string name="app_name">spacex</string>
     <string name="error_dialog_title">Error</string>
+    <string name="no_internet_error">No internet connection</string>
     <string name="generic_error">Oops something went wrong</string>
     <string name="ok_btn">OK</string>
 

@@ -43,18 +43,27 @@ class LaunchDetailsViewModel @Inject constructor(private val repository: Launche
 
         launchDataLoad(dispatcher, doOnError = {passError(it)} ){
             repository.getLaunch(launchId).collect{ result ->
-                when(result.status){
-                    Result.Status.SUCCESS -> {
-                        actionResultData(result)
+                when(result){
+                    is Result.Success -> {
+                        _launchDetailsViewData.postValue(launchModelToViewData(result.data))
                         _loading.postValue(false)
                     }
-                    Result.Status.ERROR -> {
+                    is Result.Error -> {
                         Timber.e(result.error,"LaunchDetailsViewModel")
-                        _onError.postValue(result.message ?: R.string.generic_error)
+                        when(result){
+                            is Result.Error.NoInternetError -> {
+                                _onError.postValue( R.string.no_internet_error)
+                            }
+                            else -> {
+                                _onError.postValue( R.string.generic_error)
+                            }
+                        }
                         _loading.postValue(false)
                     }
-                    Result.Status.LOADING -> {
-                        actionResultData(result)
+                    is Result.Loading -> {
+                        result.data?.let {
+                            _launchDetailsViewData.postValue(launchModelToViewData(it))
+                        }
                         _loading.postValue(true)
                     }
                 }
@@ -62,19 +71,7 @@ class LaunchDetailsViewModel @Inject constructor(private val repository: Launche
         }
     }
 
-    private fun actionResultData(result : Result<Launch>){
-        val data : LaunchDetailsViewData? = launchModelToViewData(result.data)
-        if(data == null){
-            Timber.e(result.error,"LaunchDetailsViewModel")
-            _onError.postValue(result.message ?: R.string.generic_error)
-        }
-        data?.let {
-            _launchDetailsViewData.postValue(it)
-        }
-    }
-
-    private fun launchModelToViewData(launch : Launch?) : LaunchDetailsViewData?{
-        if(launch == null) return null
+    private fun launchModelToViewData(launch : Launch) : LaunchDetailsViewData{
         return LaunchDetailsViewData(
             launch.id,
             launch.name ?: "missing",

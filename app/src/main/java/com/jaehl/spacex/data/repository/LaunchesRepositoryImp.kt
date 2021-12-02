@@ -1,9 +1,9 @@
 package com.jaehl.spacex.data.repository
 
-import com.jaehl.spacex.R
 import com.jaehl.spacex.data.local.database.LaunchDao
 import com.jaehl.spacex.data.remote.spacexApi.SpacexClient
 import com.jaehl.spacex.data.model.Launch
+import com.jaehl.spacex.data.model.NetworkResult
 import com.jaehl.spacex.ui.JobDispatcher
 import kotlinx.coroutines.flow.*
 import com.jaehl.spacex.data.model.Result
@@ -20,7 +20,12 @@ class LaunchesRepositoryImp (private val spacexClient : SpacexClient, private va
 
     override fun getLaunch(id: String): Flow<Result<Launch>> {
         return flow {
-            emit(Result.success(launchDao.get(id)))
+            val launch = launchDao.get(id)
+            if(launch == null){
+                emit(Result.error(Exception()))
+            }
+            launch?.let { emit(Result.success(it)) }
+
         }.flowOn(dispatcher.io())
     }
 
@@ -33,19 +38,15 @@ class LaunchesRepositoryImp (private val spacexClient : SpacexClient, private va
     }
 
     private fun getLaunchesRemote() : Result<List<Launch>>{
-        val response = spacexClient.getLaunches()
-        return when(response.status){
-            Result.Status.SUCCESS -> {
-                val newLaunches = response.data ?: arrayListOf()
+        return when(val response = spacexClient.getLaunches()){
+            is NetworkResult.Success -> {
+                val newLaunches = response.data
                 saveLaunches(newLaunches)
                 Result.success(newLaunches)
             }
-            Result.Status.ERROR -> {
+            is NetworkResult.Error -> {
                 Timber.e(response.error, "LaunchesRepositoryImp")
-                Result.error(R.string.generic_error)
-            }
-            Result.Status.LOADING -> {
-                Result.loading()
+                Result.error(response.error ?: Exception())
             }
         }
     }
