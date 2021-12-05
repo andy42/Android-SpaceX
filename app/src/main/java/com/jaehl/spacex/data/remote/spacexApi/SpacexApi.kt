@@ -7,5 +7,5 @@ import retrofit2.http.GET
 interface SpacexApi {
 
     @GET("v4/launches")
-    fun getLaunches() : Call<List<Launch>>
+    fun getLaunches(): Call<List<Launch>>
 }

@@ -17,7 +17,7 @@ class DatabaseModule {
 
     @Provides
     @Singleton
-    fun provideAppDatabase(@ApplicationContext appContext : Context): AppDataBase {
+    fun provideAppDatabase(@ApplicationContext appContext: Context): AppDataBase {
         return Room.databaseBuilder(
             appContext,
             AppDataBase::class.java,
@@ -26,7 +26,7 @@ class DatabaseModule {
     }
 
     @Provides
-    fun providesLaunchDao(appDataBase: AppDataBase) : LaunchDao {
+    fun providesLaunchDao(appDataBase: AppDataBase): LaunchDao {
         return appDataBase.launchDao()
     }
 }

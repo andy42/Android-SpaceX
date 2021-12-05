@@ -14,7 +14,7 @@ import dagger.hilt.components.SingletonComponent
 class LocalModel {
 
     @Provides
-    fun configuration(@ApplicationContext appContext: Context) : Configuration{
+    fun configuration(@ApplicationContext appContext: Context): Configuration {
         return ConfigurationImp(appContext)
     }
 }

@@ -8,7 +8,7 @@ import timber.log.Timber
 import java.util.concurrent.atomic.AtomicBoolean
 
 
-class ActionLiveData<T> : MutableLiveData<T>(){
+class ActionLiveData<T> : MutableLiveData<T>() {
 
     private val mPending: AtomicBoolean = AtomicBoolean(false)
 

@@ -1,10 +1,10 @@
 package com.jaehl.spacex.ui.rockets
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import com.jaehl.spacex.databinding.FragmentRocketListBinding
 import com.jaehl.spacex.ui.extensions.showErrorDialog
@@ -19,7 +19,7 @@ class RocketListFragment : Fragment(), RocketListRecyclerViewAdapter.OnItemClick
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        viewModel.onError.observe(this){
+        viewModel.onError.observe(this) {
             context?.showErrorDialog(it)
         }
         viewModel.items.observe(this) {

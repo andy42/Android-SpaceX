@@ -20,12 +20,14 @@ class RocketListViewModel @Inject constructor(dispatcher: JobDispatcher) : ViewM
 
     init {
         //TODO remove later
-        _items.postValue(arrayListOf(
-            RocketViewData(1, "item 1"),
-            RocketViewData(2, "item 2"),
-            RocketViewData(3, "item 3"),
-            RocketViewData(4, "item 4")
+        _items.postValue(
+            arrayListOf(
+                RocketViewData(1, "item 1"),
+                RocketViewData(2, "item 2"),
+                RocketViewData(3, "item 3"),
+                RocketViewData(4, "item 4")
 
-        ))
+            )
+        )
     }
 }

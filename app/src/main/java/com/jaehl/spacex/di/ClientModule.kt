@@ -13,7 +13,7 @@ import dagger.hilt.components.SingletonComponent
 class ClientModule {
 
     @Provides
-    fun spacexClient(api : SpacexApi) : SpacexClient {
+    fun spacexClient(api: SpacexApi): SpacexClient {
         return SpacexClientImp(api)
     }
 }

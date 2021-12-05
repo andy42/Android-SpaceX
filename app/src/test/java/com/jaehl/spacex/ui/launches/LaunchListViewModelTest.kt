@@ -112,18 +112,34 @@ class LaunchListViewModelTest {
     }
 
     @Test
-    fun `onError reacts to repository error results`(){
+    fun `onError repository error results`(){
 
         every {
             repository.getLaunches()
         } returns flow {
-            emit(Result.error(10, Exception("test")))
+            emit(Result.error())
         }
 
         viewModel = LaunchListViewModel(repository, testDispatcher)
 
         val onError = viewModel.onError.getOrAwaitValue()
         assertThat(onError).isNotNull()
-        assertThat(onError).isEqualTo(10)
+        assertThat(onError).isEqualTo(R.string.generic_error)
+    }
+
+    @Test
+    fun `onError repository noInternetError`(){
+
+        every {
+            repository.getLaunches()
+        } returns flow {
+            emit(Result.noInternetError())
+        }
+
+        viewModel = LaunchListViewModel(repository, testDispatcher)
+
+        val onError = viewModel.onError.getOrAwaitValue()
+        assertThat(onError).isNotNull()
+        assertThat(onError).isEqualTo(R.string.no_internet_error)
     }
 }

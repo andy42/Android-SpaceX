@@ -25,7 +25,7 @@ class NetworkModule {
     @Provides
     @Singleton
     @SpacexApiUrl
-    fun spacexApiUrl(config : Configuration) : String = "${config.getSpacexApiUrl()}/"
+    fun spacexApiUrl(config: Configuration): String = "${config.getSpacexApiUrl()}/"
 
     @Provides
     @Singleton
@@ -35,11 +35,11 @@ class NetworkModule {
 
     @Provides
     @Singleton
-    fun gsonConverterFactory(gson : Gson) : GsonConverterFactory = GsonConverterFactory.create(gson)
+    fun gsonConverterFactory(gson: Gson): GsonConverterFactory = GsonConverterFactory.create(gson)
 
     @Provides
     @Singleton
-    fun okHttpClient(config : Configuration): OkHttpClient {
+    fun okHttpClient(config: Configuration): OkHttpClient {
         val okHttpClientBuilder = OkHttpClient.Builder()
             .readTimeout(config.getRequestTimeout().toLong(), TimeUnit.SECONDS)
             .connectTimeout(config.getRequestTimeout().toLong(), TimeUnit.SECONDS)
@@ -48,7 +48,11 @@ class NetworkModule {
 
     @Provides
     @Singleton
-    fun retrofit(@SpacexApiUrl baseUrl : String, factory : GsonConverterFactory, client : OkHttpClient) : Retrofit{
+    fun retrofit(
+        @SpacexApiUrl baseUrl: String,
+        factory: GsonConverterFactory,
+        client: OkHttpClient
+    ): Retrofit {
         return Retrofit.Builder()
             .baseUrl(baseUrl)
             .client(client)
@@ -58,6 +62,6 @@ class NetworkModule {
 
     @Provides
     @Singleton
-    fun spacexApi(retrofit : Retrofit) : SpacexApi = retrofit.create(SpacexApi::class.java)
+    fun spacexApi(retrofit: Retrofit): SpacexApi = retrofit.create(SpacexApi::class.java)
 
 }

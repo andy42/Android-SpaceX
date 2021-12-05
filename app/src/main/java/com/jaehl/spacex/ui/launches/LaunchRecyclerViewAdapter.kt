@@ -1,8 +1,8 @@
 package com.jaehl.spacex.ui.launches
 
-import androidx.recyclerview.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.recyclerview.widget.RecyclerView
 import com.jaehl.spacex.databinding.ItemLaunchListBinding
 
 
